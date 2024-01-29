@@ -6,6 +6,7 @@ namespace DebitCardService.DataAccess.Entities;
 public class History : EntityBase
 {
     public int DebitCardId { get; set; }
+    public DebitCard? DebitCard { get; set; }
 
     [Required]
     [DataType(DataType.Date)]
