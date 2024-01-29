@@ -4,6 +4,7 @@ using DebitCardService.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DebitCardService.DataAccess.Migrations
 {
     [DbContext(typeof(DebitCardServiceStorageContext))]
-    partial class DebitCardServiceStorageContextModelSnapshot : ModelSnapshot
+    [Migration("20240129180417_ValidationInDebitCard")]
+    partial class ValidationInDebitCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +85,7 @@ namespace DebitCardService.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DebitCards", (string)null);
+                    b.ToTable("DebitCards");
                 });
 #pragma warning restore 612, 618
         }
