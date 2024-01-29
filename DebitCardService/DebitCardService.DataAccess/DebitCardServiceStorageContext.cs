@@ -10,4 +10,5 @@ public class DebitCardServiceStorageContext : DbContext
     }
 
     public DbSet<DebitCard> DebitCards { get; set; }
+    public DbSet<User> Users { get; set; }
 }

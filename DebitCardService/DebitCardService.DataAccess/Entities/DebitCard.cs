@@ -5,6 +5,9 @@ namespace DebitCardService.DataAccess.Entities;
 
 public class DebitCard : EntityBase
 {
+    public int UserId { get; set; }
+    public User? User { get; set; }
+
     [Required]
     [StringLength(26, MinimumLength = 26)]
     public string? AccountNumber { get; set; }
