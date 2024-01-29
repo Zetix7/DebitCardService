@@ -1,8 +1,9 @@
-﻿namespace DebitCardService.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class DebitCard
+namespace DebitCardService.DataAccess.Entities;
+
+public class DebitCard : EntityBase
 {
-    public int Id { get; set; }
     public string? AccountNumber { get; set; }
     public decimal Amount { get; set; }
     public string? CardNumber { get; set; }
