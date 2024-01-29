@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DebitCardService.DataAccess.Entities;
@@ -8,12 +9,15 @@ public class DebitCard : EntityBase
     public int UserId { get; set; }
     public User? User { get; set; }
 
+    public List<History>? History { get; set; }
+
     [Required]
     [StringLength(26, MinimumLength = 26)]
     public string? AccountNumber { get; set; }
     
     [Required]
     [DefaultValue(0)]
+    [Precision(17, 2)]
     public decimal Amount { get; set; }
 
     [Required]
