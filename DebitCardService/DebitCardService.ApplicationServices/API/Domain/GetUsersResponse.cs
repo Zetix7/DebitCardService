@@ -1,5 +1,7 @@
-﻿namespace DebitCardService.ApplicationServices.API.Domain;
+﻿using DebitCardService.ApplicationServices.API.Domain.Models;
 
-public class GetUsersResponse
+namespace DebitCardService.ApplicationServices.API.Domain;
+
+public class GetUsersResponse : ResponseBase<List<User>>
 {
 }

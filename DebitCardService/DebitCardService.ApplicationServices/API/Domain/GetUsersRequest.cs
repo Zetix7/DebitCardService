@@ -1,5 +1,7 @@
-﻿namespace DebitCardService.ApplicationServices.API.Domain;
+﻿using MediatR;
 
-public class GetUsersRequest
+namespace DebitCardService.ApplicationServices.API.Domain;
+
+public class GetUsersRequest : IRequest<GetUsersResponse>
 {
 }
