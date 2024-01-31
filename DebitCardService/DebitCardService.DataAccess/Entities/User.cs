@@ -11,4 +11,12 @@ public class User : EntityBase
 
     [StringLength(30, MinimumLength = 1)]
     public string? LastName { get; set; }
+
+    [Required]
+    [StringLength(15, MinimumLength = 8)]
+    public string? Login { get; set; }
+    
+    [Required]
+    [StringLength(50, MinimumLength = 10)]
+    public string? Password { get; set; }
 }
