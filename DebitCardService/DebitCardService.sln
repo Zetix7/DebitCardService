@@ -5,7 +5,9 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebitCardService", "DebitCardService\DebitCardService.csproj", "{B6902886-48E6-4E52-9431-370B16E32CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitCardService.DataAccess", "DebitCardService.DataAccess\DebitCardService.DataAccess.csproj", "{AF886050-3323-4A6B-AB2F-A434032BF704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebitCardService.DataAccess", "DebitCardService.DataAccess\DebitCardService.DataAccess.csproj", "{AF886050-3323-4A6B-AB2F-A434032BF704}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebitCardService.ApplicationServices", "DebitCardService.ApplicationServices\DebitCardService.ApplicationServices.csproj", "{58BED18E-B655-4E36-9A4C-B2081CB9F3EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{AF886050-3323-4A6B-AB2F-A434032BF704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF886050-3323-4A6B-AB2F-A434032BF704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF886050-3323-4A6B-AB2F-A434032BF704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58BED18E-B655-4E36-9A4C-B2081CB9F3EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58BED18E-B655-4E36-9A4C-B2081CB9F3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58BED18E-B655-4E36-9A4C-B2081CB9F3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58BED18E-B655-4E36-9A4C-B2081CB9F3EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
