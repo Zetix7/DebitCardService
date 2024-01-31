@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DebitCardService.ApplicationServices.API.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DebitCardService.Controllers;
@@ -12,5 +13,13 @@ public class DebitCardsController : ControllerBase
     public DebitCardsController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    [Route("")]
+    public async Task<IActionResult> GetAllDebitCards([FromQuery] GetAllDebitCardsRequest request)
+    {
+        var response = await _mediator.Send(request);
+        return Ok(response);
     }
 }
