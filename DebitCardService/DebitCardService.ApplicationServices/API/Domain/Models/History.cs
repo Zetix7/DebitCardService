@@ -2,6 +2,7 @@
 
 public class History
 {
+    public int Id { get; set; }
     public DateTime DateOfOperation { get; set; } = DateTime.Now;
     public string? Sender { get; set; }
     public string? SenderAccountNumber { get; set; }
