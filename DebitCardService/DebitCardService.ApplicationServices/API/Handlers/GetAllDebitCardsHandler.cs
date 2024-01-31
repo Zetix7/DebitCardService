@@ -17,19 +17,22 @@ public class GetAllDebitCardsHandler : IRequestHandler<GetAllDebitCardsRequest, 
     public Task<GetAllDebitCardsResponse> Handle(GetAllDebitCardsRequest request, CancellationToken cancellationToken)
     {
         var debitCards = _debitCardRepository.GetAll();
-
-        return Task.FromResult(new GetAllDebitCardsResponse
+        var domainDebitCards = debitCards.Select(x => new DebitCard
         {
-            Data = debitCards.Select(x => new DebitCard
-            {
-                Id = x.Id,
-                AccountNumber = x.AccountNumber,
-                Amount = x.Amount,
-                CardNumber = x.CardNumber,
-                ExpirityDate = x.ExpirityDate,
-                CardHolder = x.CardHolder,
-                IsActive = x.IsActive
-            }).ToList()
-        }); ;
+            Id = x.Id,
+            AccountNumber = x.AccountNumber,
+            Amount = x.Amount,
+            CardNumber = x.CardNumber,
+            ExpirityDate = x.ExpirityDate,
+            CardHolder = x.CardHolder,
+            IsActive = x.IsActive
+        }).ToList();
+
+        var response = new GetAllDebitCardsResponse
+        {
+            Data = domainDebitCards
+        }
+        ;
+        return Task.FromResult(response);
     }
 }
