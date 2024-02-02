@@ -8,5 +8,5 @@ public interface IRepository<T> where T : EntityBase
     Task<T?> GetById(int id);
     Task Insert(T entity);
     Task Update(T entity);
-    Task Delete(T entity);
+    Task Delete(int id);
 }

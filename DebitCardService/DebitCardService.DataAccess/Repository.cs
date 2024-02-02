@@ -45,12 +45,10 @@ public class Repository<T> : IRepository<T> where T : EntityBase
         return _context.SaveChangesAsync();
     }
 
-    public Task Delete(T entity)
+    public async Task Delete(int id)
     {
-        if (entity == null)
-        {
-            throw new ArgumentNullException(nameof(entity));
-        }
-        return _context.SaveChangesAsync();
+        T? entity = await GetById(id);
+        _entities.Remove(entity!);
+        await _context.SaveChangesAsync();
     }
 }
