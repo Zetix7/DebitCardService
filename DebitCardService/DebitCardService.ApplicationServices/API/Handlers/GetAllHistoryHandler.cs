@@ -1,25 +1,27 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
-using DebitCardService.DataAccess;
+using DebitCardService.DataAccess.CQRS;
+using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
 
 namespace DebitCardService.ApplicationServices.API.Handlers;
 
 public class GetAllHistoryHandler : IRequestHandler<GetAllHistoryRequest, GetAllHistoryResponse>
 {
-    private readonly IRepository<DataAccess.Entities.History> _historyRepository;
     private readonly IMapper _mapper;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public GetAllHistoryHandler(IRepository<DataAccess.Entities.History> historyRepository, IMapper mapper)
+    public GetAllHistoryHandler(IMapper mapper, IQueryExecutor queryExecutor)
     {
-        _historyRepository = historyRepository;
         _mapper = mapper;
+        _queryExecutor = queryExecutor;
     }
 
     public async Task<GetAllHistoryResponse> Handle(GetAllHistoryRequest request, CancellationToken cancellationToken)
     {
-        var history = await _historyRepository.GetAll();
+        var query = new GetAllHistoryQuery();
+        var history = await _queryExecutor.Execute(query);
         var mappedHistory = _mapper.Map<List<History>>(history);
 
         var response = new GetAllHistoryResponse

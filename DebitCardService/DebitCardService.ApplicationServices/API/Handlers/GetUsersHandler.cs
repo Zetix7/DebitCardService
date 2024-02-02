@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
-using DebitCardService.DataAccess;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
