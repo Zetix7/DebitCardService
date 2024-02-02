@@ -1,4 +1,5 @@
 using DebitCardService.ApplicationServices.API.Domain;
+using DebitCardService.ApplicationServices.Mappings;
 using DebitCardService.DataAccess;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddAutoMapper(typeof(UsersProfile).Assembly);
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddDbContext<DebitCardServiceStorageContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DebitCardServiceDatabaseConnection")));
