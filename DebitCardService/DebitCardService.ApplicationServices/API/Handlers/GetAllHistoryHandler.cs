@@ -1,4 +1,5 @@
-﻿using DebitCardService.ApplicationServices.API.Domain;
+﻿using AutoMapper;
+using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
 using DebitCardService.DataAccess;
 using MediatR;
@@ -8,30 +9,22 @@ namespace DebitCardService.ApplicationServices.API.Handlers;
 public class GetAllHistoryHandler : IRequestHandler<GetAllHistoryRequest, GetAllHistoryResponse>
 {
     private readonly IRepository<DataAccess.Entities.History> _historyRepository;
+    private readonly IMapper _mapper;
 
-    public GetAllHistoryHandler(IRepository<DataAccess.Entities.History> historyRepository)
+    public GetAllHistoryHandler(IRepository<DataAccess.Entities.History> historyRepository, IMapper mapper)
     {
         _historyRepository = historyRepository;
+        _mapper = mapper;
     }
 
     public Task<GetAllHistoryResponse> Handle(GetAllHistoryRequest request, CancellationToken cancellationToken)
     {
         var history = _historyRepository.GetAll();
-        var domainHistory = history.Select(x => new History
-        {
-            Id = x.Id,
-            DateOfOperation = x.DateOfOperation,
-            Sender = x.Sender,
-            SenderAccountNumber = x.SenderAccountNumber,
-            Recipient = x.Recipient,
-            RecipientAccountNumber = x.RecipientAccountNumber,
-            Amount = x.Amount,
-            Title = x.Title,
-        }).ToList();
+        var mappedHistory = _mapper.Map<List<History>>(history);
 
         var response = new GetAllHistoryResponse
         {
-            Data = domainHistory,
+            Data = mappedHistory,
         };
 
         return Task.FromResult(response);
