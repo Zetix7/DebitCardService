@@ -17,9 +17,9 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
         _mapper = mapper;
     }
 
-    public Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
+    public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
-        var users = _userRepository.GetAll();
+        var users = await _userRepository.GetAll();
         var mappedUsers = _mapper.Map<List<User>>(users);
 
         var response = new GetUsersResponse()
@@ -27,6 +27,6 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
             Data = mappedUsers
         };
 
-        return Task.FromResult(response);
+        return response;
     }
 }

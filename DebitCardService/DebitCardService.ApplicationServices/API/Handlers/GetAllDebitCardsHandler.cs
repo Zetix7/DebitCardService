@@ -17,9 +17,9 @@ public class GetAllDebitCardsHandler : IRequestHandler<GetAllDebitCardsRequest, 
         _mapper = mapper;
     }
 
-    public Task<GetAllDebitCardsResponse> Handle(GetAllDebitCardsRequest request, CancellationToken cancellationToken)
+    public async Task<GetAllDebitCardsResponse> Handle(GetAllDebitCardsRequest request, CancellationToken cancellationToken)
     {
-        var debitCards = _debitCardRepository.GetAll();
+        var debitCards = await _debitCardRepository.GetAll();
         var mappedDebitCards = _mapper.Map<List<DebitCard>>(debitCards);
 
         var response = new GetAllDebitCardsResponse
@@ -27,6 +27,6 @@ public class GetAllDebitCardsHandler : IRequestHandler<GetAllDebitCardsRequest, 
             Data = mappedDebitCards
         }
         ;
-        return Task.FromResult(response);
+        return response;
     }
 }

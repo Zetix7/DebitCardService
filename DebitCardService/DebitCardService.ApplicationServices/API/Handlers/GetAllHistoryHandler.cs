@@ -17,9 +17,9 @@ public class GetAllHistoryHandler : IRequestHandler<GetAllHistoryRequest, GetAll
         _mapper = mapper;
     }
 
-    public Task<GetAllHistoryResponse> Handle(GetAllHistoryRequest request, CancellationToken cancellationToken)
+    public async Task<GetAllHistoryResponse> Handle(GetAllHistoryRequest request, CancellationToken cancellationToken)
     {
-        var history = _historyRepository.GetAll();
+        var history = await _historyRepository.GetAll();
         var mappedHistory = _mapper.Map<List<History>>(history);
 
         var response = new GetAllHistoryResponse
@@ -27,6 +27,6 @@ public class GetAllHistoryHandler : IRequestHandler<GetAllHistoryRequest, GetAll
             Data = mappedHistory,
         };
 
-        return Task.FromResult(response);
+        return response;
     }
 }
