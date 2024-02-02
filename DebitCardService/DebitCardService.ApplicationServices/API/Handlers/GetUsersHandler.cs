@@ -2,24 +2,27 @@
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
 using DebitCardService.DataAccess;
+using DebitCardService.DataAccess.CQRS;
+using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
 
 namespace DebitCardService.ApplicationServices.API.Handlers;
 
 public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse>
 {
-    private readonly IRepository<DataAccess.Entities.User> _userRepository;
     private readonly IMapper _mapper;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public GetUsersHandler(IRepository<DataAccess.Entities.User> userRepository, IMapper mapper)
+    public GetUsersHandler(IMapper mapper, IQueryExecutor queryExecutor)
     {
-        _userRepository = userRepository;
         _mapper = mapper;
+        _queryExecutor = queryExecutor;
     }
 
     public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
-        var users = await _userRepository.GetAll();
+        var query = new GetUsersQuery();
+        var users = await _queryExecutor.Execute(query);
         var mappedUsers = _mapper.Map<List<User>>(users);
 
         var response = new GetUsersResponse()
