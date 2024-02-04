@@ -22,4 +22,12 @@ public class DebitCardsController : ControllerBase
         var response = await _mediator.Send(request);
         return Ok(response);
     }
+
+    [HttpPost]
+    [Route("")]
+    public async Task<IActionResult> AddDebitCard([FromBody] AddDebitCardRequest request)
+    {
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
 }
