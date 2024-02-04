@@ -22,4 +22,12 @@ public class HistoryController : ControllerBase
         var response = await _mediator.Send(request);
         return Ok(response);
     }
+
+    [HttpPost]
+    [Route("")]
+    public async Task<IActionResult> AddHistory([FromBody] AddHistoryRequest request)
+    {
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
 }
