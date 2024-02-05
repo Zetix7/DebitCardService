@@ -26,12 +26,6 @@ public class DebitCardsProfile : Profile
             .ForMember(x => x.PinCode, y => y.MapFrom(z => z.PinCode))
             .ForMember(x => x.CardHolder, y => y.MapFrom(z => z.CardHolder))
             .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsActive))
-            .ForMember(x => x.IsActiveCashWithdrawal, y => y.MapFrom(z => z.IsActiveCashWithdrawal))
-            .ForMember(x => x.CashWithdrawalLimit, y => y.MapFrom(z => z.CashWithdrawalLimit))
-            .ForMember(x => x.IsActiveByPayPass, y => y.MapFrom(z => z.IsActiveByPayPass))
-            .ForMember(x => x.PayPassLimit, y => y.MapFrom(z => z.PayPassLimit))
-            .ForMember(x => x.IsActiveByPhone, y => y.MapFrom(z => z.IsActiveByPhone))
-            .ForMember(x => x.PhoneLimit, y => y.MapFrom(z => z.PhoneLimit))
             .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId));
     }
 }
