@@ -23,6 +23,18 @@ public class UsersController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet]
+    [Route("{userId}")]
+    public async Task<IActionResult> GetUserById([FromRoute] int userId)
+    {
+        var request = new GetUserByIdRequest
+        {
+            UserId = userId
+        };
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
+
     [HttpPost]
     [Route("")]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request)
