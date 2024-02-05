@@ -20,7 +20,10 @@ public class GetAllDebitCardsHandler : IRequestHandler<GetAllDebitCardsRequest, 
 
     public async Task<GetAllDebitCardsResponse> Handle(GetAllDebitCardsRequest request, CancellationToken cancellationToken)
     {
-        var query = new GetAllDebitCardsQuery();
+        var query = new GetAllDebitCardsQuery()
+        {
+            UserId = request.UserId,
+        };
         var debitCards = await _queryExecutor.Execute(query);
         var mappedDebitCards = _mapper.Map<List<DebitCard>>(debitCards);
 
