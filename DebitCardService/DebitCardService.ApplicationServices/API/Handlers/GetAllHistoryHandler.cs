@@ -20,7 +20,10 @@ public class GetAllHistoryHandler : IRequestHandler<GetAllHistoryRequest, GetAll
 
     public async Task<GetAllHistoryResponse> Handle(GetAllHistoryRequest request, CancellationToken cancellationToken)
     {
-        var query = new GetAllHistoryQuery();
+        var query = new GetAllHistoryQuery()
+        {
+            Amount = request.Amount,
+        };
         var history = await _queryExecutor.Execute(query);
         var mappedHistory = _mapper.Map<List<History>>(history);
 
