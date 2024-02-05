@@ -20,7 +20,10 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
 
     public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
-        var query = new GetUsersQuery();
+        var query = new GetUsersQuery()
+        {
+            LastName = request.LastName,
+        };
         var users = await _queryExecutor.Execute(query);
         var mappedUsers = _mapper.Map<List<User>>(users);
 
