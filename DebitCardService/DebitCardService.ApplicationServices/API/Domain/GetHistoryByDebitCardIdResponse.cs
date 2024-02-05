@@ -2,6 +2,6 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class GetDebitCardByIdResponse : ResponseBase<DebitCard>
+public class GetHistoryByDebitCardIdResponse : ResponseBase<List<History>>
 {
 }
