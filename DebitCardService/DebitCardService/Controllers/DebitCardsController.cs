@@ -51,4 +51,13 @@ public class DebitCardsController : ControllerBase
         var response = await _mediator.Send(request); 
         return Ok(response);
     }
+
+    [HttpDelete]
+    [Route("{debitCardId}")]
+    public async Task<IActionResult> RemoveDebitCard([FromRoute] int debitCardId)
+    {
+        var request = new RemoveDebitCardRequest { Id = debitCardId };
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
 }
