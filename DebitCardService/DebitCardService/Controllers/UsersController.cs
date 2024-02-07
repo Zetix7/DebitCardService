@@ -51,4 +51,13 @@ public class UsersController : ControllerBase
         var response = await _mediator.Send(request);
         return Ok(response);
     }
+
+    [HttpDelete]
+    [Route("{userId}")]
+    public async Task<IActionResult> RemoveUser([FromRoute] int userId)
+    {
+        var request = new RemoveUserRequest { Id = userId };
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
 }
