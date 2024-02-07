@@ -27,5 +27,9 @@ public class DebitCardsProfile : Profile
             .ForMember(x => x.CardHolder, y => y.MapFrom(z => z.CardHolder))
             .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsActive))
             .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId));
+
+        CreateMap<UpdateDebitCardActivityRequest, DataAccess.Entities.DebitCard>()
+            .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+            .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsActive));
     }
 }

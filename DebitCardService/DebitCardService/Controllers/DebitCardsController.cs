@@ -42,4 +42,13 @@ public class DebitCardsController : ControllerBase
         var response = await _mediator.Send(request);
         return Ok(response);
     }
+
+    [HttpPut]
+    [Route("{debitCardId}")]
+    public async Task<IActionResult> UpdateDebitCardActivity([FromRoute] int debitCardId, [FromBody] UpdateDebitCardActivityRequest request)
+    {
+        request.Id = debitCardId;
+        var response = await _mediator.Send(request); 
+        return Ok(response);
+    }
 }
