@@ -39,6 +39,11 @@ public class UsersController : ControllerBase
     [Route("")]
     public async Task<IActionResult> AddUser([FromBody] AddUserRequest request)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest("BAD_REQUEST_678");
+        }
+
         var response = await _mediator.Send(request);
         return Ok(response);
     }
