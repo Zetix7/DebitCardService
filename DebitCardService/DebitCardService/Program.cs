@@ -1,13 +1,18 @@
 using DebitCardService.ApplicationServices.API.Domain;
+using DebitCardService.ApplicationServices.API.Validators;
 using DebitCardService.ApplicationServices.Mappings;
 using DebitCardService.DataAccess;
 using DebitCardService.DataAccess.CQRS;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<AddUserRequestValidator>();
+
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddAutoMapper(typeof(UsersProfile).Assembly);
