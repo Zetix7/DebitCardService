@@ -41,7 +41,9 @@ public class UsersController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest("BAD_REQUEST_678");
+            return BadRequest(ModelState
+                .Where(x => x.Value!.Errors.Any())
+                .Select(x => new { property = x.Key, errors = x.Value!.Errors }));
         }
 
         var response = await _mediator.Send(request);
