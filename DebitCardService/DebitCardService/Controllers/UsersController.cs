@@ -6,13 +6,11 @@ namespace DebitCardService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UsersController : ControllerBase
+public class UsersController : ApiControllerBase
 {
-    private readonly IMediator _mediator;
 
-    public UsersController(IMediator mediator)
+    public UsersController(IMediator mediator) : base(mediator)
     {
-        _mediator = mediator;
     }
 
     [HttpGet]
@@ -37,17 +35,9 @@ public class UsersController : ControllerBase
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> AddUser([FromBody] AddUserRequest request)
+    public Task<IActionResult> AddUser([FromBody] AddUserRequest request)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState
-                .Where(x => x.Value!.Errors.Any())
-                .Select(x => new { property = x.Key, errors = x.Value!.Errors }));
-        }
-
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<AddUserRequest, AddUserResponse>(request);
     }
 
     [HttpPut]
