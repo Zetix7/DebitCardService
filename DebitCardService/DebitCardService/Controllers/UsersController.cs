@@ -15,22 +15,17 @@ public class UsersController : ApiControllerBase
 
     [HttpGet]
     [Route("")]
-    public async Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
+    public Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
     {
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<GetUsersRequest, GetUsersResponse>(request);
     }
 
     [HttpGet]
     [Route("{userId}")]
-    public async Task<IActionResult> GetUserById([FromRoute] int userId)
+    public Task<IActionResult> GetUserById([FromRoute] int userId)
     {
-        var request = new GetUserByIdRequest
-        {
-            UserId = userId
-        };
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        var request = new GetUserByIdRequest { UserId = userId };
+        return HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
     }
 
     [HttpPost]
@@ -42,19 +37,17 @@ public class UsersController : ApiControllerBase
 
     [HttpPut]
     [Route("{userId}")]
-    public async Task<IActionResult> UpdateUserNameById([FromRoute] int userId, [FromBody] UpdateUserNameByIdRequest request)
+    public Task<IActionResult> UpdateUserNameById([FromRoute] int userId, [FromBody] UpdateUserNameByIdRequest request)
     {
         request.Id = userId;
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<UpdateUserNameByIdRequest, UpdateUserNameByIdResponse>(request);
     }
 
     [HttpDelete]
     [Route("{userId}")]
-    public async Task<IActionResult> RemoveUser([FromRoute] int userId)
+    public Task<IActionResult> RemoveUser([FromRoute] int userId)
     {
         var request = new RemoveUserRequest { Id = userId };
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<RemoveUserRequest, RemoveUserResponse>(request);
     }
 }

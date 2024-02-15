@@ -6,7 +6,7 @@ using System.Net;
 
 namespace DebitCardService.Controllers;
 
-public class ApiControllerBase : ControllerBase
+public abstract class ApiControllerBase : ControllerBase
 {
     protected readonly IMediator _mediator;
 
@@ -19,24 +19,24 @@ public class ApiControllerBase : ControllerBase
         where TRequest : IRequest<TResponse>
         where TResponse : ErrorResponseBase
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return BadRequest(ModelState
-                .Where(x=>x.Value!.Errors.Any())
-                .Select(x=> new {property = x.Key, errors = x.Value!.Errors}));
+                .Where(x => x.Value!.Errors.Any())
+                .Select(x => new { property = x.Key, errors = x.Value!.Errors }));
         }
 
         var response = await _mediator.Send(request);
 
-        if(response.Error != null)
+        if (response.Error != null)
         {
-            return ErrorResponseBase(response.Error);
+            return ErrorResponse(response.Error);
         }
 
         return Ok(response);
     }
 
-    private IActionResult ErrorResponseBase(ErrorModel errorModel)
+    private IActionResult ErrorResponse(ErrorModel errorModel)
     {
         var httpCode = GetHttpStatusCode(errorModel.Error);
         return StatusCode((int)httpCode, errorModel);
