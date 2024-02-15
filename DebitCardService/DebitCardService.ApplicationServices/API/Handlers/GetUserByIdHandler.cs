@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
@@ -25,6 +26,12 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, GetUserByI
             Id = request.UserId
         };
         var user = await _queryExecutor.Execute(query);
+        
+        if (user == null)
+        {
+            return new GetUserByIdResponse { Error = new ErrorModel(ErrorType.NotFound) };
+        }
+        
         var domainUser = _mapper.Map<User>(user);
         var response = new GetUserByIdResponse
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Commands;
 using MediatR;
@@ -23,8 +24,14 @@ public class RemoveUserHandler : IRequestHandler<RemoveUserRequest, RemoveUserRe
         var userEntity = new DataAccess.Entities.User { Id = request.Id };
         var command = new RemoveUserCommand { Parameter = userEntity };
         var userFromDb = await _commandExecutor.Execute(command);
+        
+        if (userFromDb.FirstName == null)
+        {
+            return new RemoveUserResponse { Error = new ErrorModel(ErrorType.NotFound) };
+        }
+        
         var domainUser = _mapper.Map<User>(userFromDb);
-        var response = new RemoveUserResponse { Data  = domainUser };
+        var response = new RemoveUserResponse { Data = domainUser };
         return response;
     }
 }

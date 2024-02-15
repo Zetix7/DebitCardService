@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Commands;
 using MediatR;
@@ -23,6 +24,12 @@ public class AddUserHandler : IRequestHandler<AddUserRequest, AddUserResponse>
         var user = _mapper.Map<DataAccess.Entities.User>(request);
         var command = new AddUserCommand { Parameter = user };
         var userFromDb = await _commandExecutor.Execute(command);
+        
+        if (userFromDb == null)
+        {
+            return new AddUserResponse { Error = new ErrorModel(ErrorType.ValidationError) };
+        }
+        
         var mappedUser = _mapper.Map<User>(userFromDb);
         var response = new AddUserResponse
         {
