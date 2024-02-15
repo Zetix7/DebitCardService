@@ -15,7 +15,8 @@ public class DebitCardsProfile : Profile
             .ForMember(x => x.CardNumber, y => y.MapFrom(z => z.CardNumber))
             .ForMember(x => x.ExpirityDate, y => y.MapFrom(z => z.ExpirityDate))
             .ForMember(x => x.CardHolder, y => y.MapFrom(z => z.CardHolder))
-            .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsActive));
+            .ForMember(x => x.IsActive, y => y.MapFrom(z => z.IsActive))
+            .ForMember(x => x.AmountsOfTransaction, y => y.MapFrom(z => z.History != null ? z.History.Select(x=>x.Amount) : new List<decimal>()));
 
         CreateMap<AddDebitCardRequest, DataAccess.Entities.DebitCard>()
             .ForMember(x => x.AccountNumber, y => y.MapFrom(z => z.AccountNumber))

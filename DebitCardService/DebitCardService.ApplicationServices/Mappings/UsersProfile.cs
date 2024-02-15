@@ -11,7 +11,8 @@ public class UsersProfile : Profile
         CreateMap<DataAccess.Entities.User, User>()
             .ForMember(x=>x.Id, y=>y.MapFrom(z=>z.Id))
             .ForMember(x=>x.FirstName, y=>y.MapFrom(z=>z.FirstName))
-            .ForMember(x=>x.LastName, y=>y.MapFrom(z=>z.LastName));
+            .ForMember(x=>x.LastName, y=>y.MapFrom(z=>z.LastName))
+            .ForMember(x=>x.AmountsOnCards, y=>y.MapFrom(z=>z.DebitCards != null ? z.DebitCards.Select(x=>x.Amount) : new List<decimal>()));
 
         CreateMap<AddUserRequest, DataAccess.Entities.User>()
             .ForMember(x => x.FirstName, y => y.MapFrom(z => z.FirstName))

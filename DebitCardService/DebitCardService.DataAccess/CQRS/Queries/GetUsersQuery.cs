@@ -10,7 +10,7 @@ public class GetUsersQuery : QueryBase<List<User>>
     public override Task<List<User>> Execute(DebitCardServiceStorageContext context)
     {
         return string.IsNullOrEmpty(LastName) 
-            ? context.Users.ToListAsync() 
-            : context.Users.Where(x => x.LastName == LastName).ToListAsync();
+            ? context.Users.Include(x=>x.DebitCards).ToListAsync() 
+            : context.Users.Include(x => x.DebitCards).Where(x => x.LastName == LastName).ToListAsync();
     }
 }

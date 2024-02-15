@@ -10,7 +10,7 @@ public class GetAllDebitCardsQuery : QueryBase<List<DebitCard>>
     public override Task<List<DebitCard>> Execute(DebitCardServiceStorageContext context)
     {
         return UserId == 0
-            ? context.DebitCards.ToListAsync()
-            : context.DebitCards.Where(x=>x.UserId == UserId).ToListAsync();
+            ? context.DebitCards.Include(x => x.History).ToListAsync()
+            : context.DebitCards.Include(x => x.History).Where(x => x.UserId == UserId).ToListAsync();
     }
 }

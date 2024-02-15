@@ -9,6 +9,6 @@ public class GetDebitCardByIdQuery : QueryBase<DebitCard>
 
     public override Task<DebitCard> Execute(DebitCardServiceStorageContext context)
     {
-        return context.DebitCards.FirstOrDefaultAsync(x => x.Id == Id)!;
+        return context.DebitCards.Include(x => x.History).FirstOrDefaultAsync(x => x.Id == Id)!;
     }
 }

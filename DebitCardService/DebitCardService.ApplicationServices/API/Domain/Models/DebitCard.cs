@@ -9,4 +9,5 @@ public class DebitCard
     public DateTime ExpirityDate { get; set; }
     public string? CardHolder { get; set; }
     public bool IsActive { get; set; }
+    public List<decimal>? AmountsOfTransaction { get; set; }
 }
