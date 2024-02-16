@@ -7,40 +7,34 @@ namespace DebitCardService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class HistoryController : ControllerBase
+public class HistoryController : ApiControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public HistoryController(IMediator mediator)
+    public HistoryController(IMediator mediator) : base(mediator)
     {
-        _mediator = mediator;
     }
 
     [HttpGet]
     [Route("")]
-    public async Task<IActionResult> GetAllHistory([FromQuery] GetAllHistoryRequest request)
+    public Task<IActionResult> GetAllHistory([FromQuery] GetAllHistoryRequest request)
     {
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<GetAllHistoryRequest, GetAllHistoryResponse>(request);
     }
 
     [HttpGet]
     [Route("{debitCardId}")]
-    public async Task<IActionResult> GetHistoryByDebitCardId([FromRoute] int debitCardId)
+    public Task<IActionResult> GetHistoryByDebitCardId([FromRoute] int debitCardId)
     {
         var request = new GetHistoryByDebitCardIdRequest
         {
             DebitCardId = debitCardId
         };
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<GetHistoryByDebitCardIdRequest, GetHistoryByDebitCardIdResponse>(request);
     }
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> AddHistory([FromBody] AddHistoryRequest request)
+    public Task<IActionResult> AddHistory([FromBody] AddHistoryRequest request)
     {
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<AddHistoryRequest, AddHistoryResponse>(request);
     }
 }

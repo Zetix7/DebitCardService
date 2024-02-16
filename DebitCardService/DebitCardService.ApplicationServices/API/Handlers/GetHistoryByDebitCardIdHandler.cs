@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
@@ -25,6 +26,12 @@ public class GetHistoryByDebitCardIdHandler : IRequestHandler<GetHistoryByDebitC
             DebitCardId = request.DebitCardId,
         };
         var history = await _queryExecutor.Execute(query);
+
+        if(history.Count == 0)
+        {
+            return new GetHistoryByDebitCardIdResponse { Error = new ErrorModel(ErrorType.NotFound)};
+        }
+
         var domainHistory = _mapper.Map<List<History>>(history);
         var response = new GetHistoryByDebitCardIdResponse
         {
