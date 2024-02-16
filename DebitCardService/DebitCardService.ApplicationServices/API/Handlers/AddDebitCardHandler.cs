@@ -24,12 +24,17 @@ public class AddDebitCardHandler : IRequestHandler<AddDebitCardRequest, AddDebit
         var debitCardEntity = _mapper.Map<DataAccess.Entities.DebitCard>(request);
         var command = new AddDebitCardCommand { Parameter = debitCardEntity };
         var debitCard = await _commandExecutor.Execute(command);
-        
-        if(debitCard == null)
+
+        if (debitCard == null)
         {
             return new AddDebitCardResponse { Error = new ErrorModel(ErrorType.ValidationError) };
         }
-        
+
+        if (debitCard.Id == 0)
+        {
+            return new AddDebitCardResponse { Error = new ErrorModel(ErrorType.InternalServerError) };
+        }
+
         var domainDebitCard = _mapper.Map<DebitCard>(debitCard);
         var response = new AddDebitCardResponse
         {
