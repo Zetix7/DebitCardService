@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Commands;
 using MediatR;
@@ -23,6 +24,12 @@ public class AddDebitCardHandler : IRequestHandler<AddDebitCardRequest, AddDebit
         var debitCardEntity = _mapper.Map<DataAccess.Entities.DebitCard>(request);
         var command = new AddDebitCardCommand { Parameter = debitCardEntity };
         var debitCard = await _commandExecutor.Execute(command);
+        
+        if(debitCard == null)
+        {
+            return new AddDebitCardResponse { Error = new ErrorModel(ErrorType.ValidationError) };
+        }
+        
         var domainDebitCard = _mapper.Map<DebitCard>(debitCard);
         var response = new AddDebitCardResponse
         {

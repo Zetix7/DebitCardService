@@ -6,58 +6,50 @@ namespace DebitCardService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class DebitCardsController : ControllerBase
+public class DebitCardsController : ApiControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public DebitCardsController(IMediator mediator)
+    public DebitCardsController(IMediator mediator) : base(mediator)
     {
-        _mediator = mediator;
     }
 
     [HttpGet]
     [Route("")]
-    public async Task<IActionResult> GetAllDebitCards([FromQuery] GetAllDebitCardsRequest request)
+    public Task<IActionResult> GetAllDebitCards([FromQuery] GetAllDebitCardsRequest request)
     {
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<GetAllDebitCardsRequest, GetAllDebitCardsResponse>(request);
     }
 
     [HttpGet]
     [Route("{debitCardId}")]
-    public async Task<IActionResult> GetDebitCardById([FromRoute] int debitCardId)
+    public Task<IActionResult> GetDebitCardById([FromRoute] int debitCardId)
     {
         var request = new GetDebitCardByIdRequest
         {
             Id = debitCardId
         };
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<GetDebitCardByIdRequest, GetDebitCardByIdResponse>(request);
     }
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> AddDebitCard([FromBody] AddDebitCardRequest request)
+    public Task<IActionResult> AddDebitCard([FromBody] AddDebitCardRequest request)
     {
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<AddDebitCardRequest, AddDebitCardResponse>(request);
     }
 
     [HttpPut]
     [Route("{debitCardId}")]
-    public async Task<IActionResult> UpdateDebitCardActivity([FromRoute] int debitCardId, [FromBody] UpdateDebitCardActivityRequest request)
+    public Task<IActionResult> UpdateDebitCardActivity([FromRoute] int debitCardId, [FromBody] UpdateDebitCardActivityRequest request)
     {
         request.Id = debitCardId;
-        var response = await _mediator.Send(request); 
-        return Ok(response);
+        return HandleRequest<UpdateDebitCardActivityRequest, UpdateDebitCardActivityResponse>(request);
     }
 
     [HttpDelete]
     [Route("{debitCardId}")]
-    public async Task<IActionResult> RemoveDebitCard([FromRoute] int debitCardId)
+    public Task<IActionResult> RemoveDebitCard([FromRoute] int debitCardId)
     {
         var request = new RemoveDebitCardRequest { Id = debitCardId };
-        var response = await _mediator.Send(request);
-        return Ok(response);
+        return HandleRequest<RemoveDebitCardRequest, RemoveDebitCardResponse>(request);
     }
 }
