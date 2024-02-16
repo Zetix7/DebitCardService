@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Commands;
 using MediatR;
@@ -26,6 +27,12 @@ public class RemoveDebitCardHandler : IRequestHandler<RemoveDebitCardRequest, Re
         };
         var command = new RemoveDebitCardCommand { Parameter = debitCardEntity };
         var removedDebitCard = await _commandExecutor.Execute(command);
+
+        if (removedDebitCard.Id == 0)
+        {
+            return new RemoveDebitCardResponse { Error = new ErrorModel(ErrorType.NotFound) };
+        }
+
         var domainDebitCard = _mapper.Map<DebitCard>(removedDebitCard);
         var response = new RemoveDebitCardResponse
         {

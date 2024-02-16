@@ -10,6 +10,7 @@ public class UpdateDebitCardActivityCommand : CommandBase<DebitCard, DebitCard>
         var debitCard = await context.DebitCards.FirstOrDefaultAsync(x => x.Id == Parameter!.Id);
         if (debitCard == null)
         {
+            Parameter!.Id = 0;
             return Parameter!;
         }
 
