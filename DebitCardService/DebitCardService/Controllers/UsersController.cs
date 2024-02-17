@@ -8,15 +8,18 @@ namespace DebitCardService.Controllers;
 [Route("[controller]")]
 public class UsersController : ApiControllerBase
 {
+    private readonly ILogger<UsersController> _logger;
 
-    public UsersController(IMediator mediator) : base(mediator)
+    public UsersController(IMediator mediator, ILogger<UsersController> logger) : base(mediator)
     {
+        _logger = logger;
     }
 
     [HttpGet]
     [Route("")]
     public Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
     {
+        _logger.LogInformation("We are in GetAllUsers endpoint GET");
         return HandleRequest<GetUsersRequest, GetUsersResponse>(request);
     }
 
@@ -24,6 +27,7 @@ public class UsersController : ApiControllerBase
     [Route("{userId}")]
     public Task<IActionResult> GetUserById([FromRoute] int userId)
     {
+        _logger.LogInformation("We are in GetAllUserById endpoint GET");
         var request = new GetUserByIdRequest { UserId = userId };
         return HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
     }
@@ -32,6 +36,7 @@ public class UsersController : ApiControllerBase
     [Route("")]
     public Task<IActionResult> AddUser([FromBody] AddUserRequest request)
     {
+        _logger.LogInformation("We are in AddUser endpoint POST");
         return HandleRequest<AddUserRequest, AddUserResponse>(request);
     }
 
@@ -39,6 +44,7 @@ public class UsersController : ApiControllerBase
     [Route("{userId}")]
     public Task<IActionResult> UpdateUserNameById([FromRoute] int userId, [FromBody] UpdateUserNameByIdRequest request)
     {
+        _logger.LogInformation("We are in UpdateUserNameById endpoint PUT");
         request.Id = userId;
         return HandleRequest<UpdateUserNameByIdRequest, UpdateUserNameByIdResponse>(request);
     }
@@ -47,6 +53,7 @@ public class UsersController : ApiControllerBase
     [Route("{userId}")]
     public Task<IActionResult> RemoveUser([FromRoute] int userId)
     {
+        _logger.LogInformation("We are in RemoveUser endpoint DELETE");
         var request = new RemoveUserRequest { Id = userId };
         return HandleRequest<RemoveUserRequest, RemoveUserResponse>(request);
     }

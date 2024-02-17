@@ -8,14 +8,18 @@ namespace DebitCardService.Controllers;
 [Route("[controller]")]
 public class DebitCardsController : ApiControllerBase
 {
-    public DebitCardsController(IMediator mediator) : base(mediator)
+    private readonly ILogger<DebitCardsController> _logger;
+
+    public DebitCardsController(IMediator mediator, ILogger<DebitCardsController> logger) : base(mediator)
     {
+        _logger = logger;
     }
 
     [HttpGet]
     [Route("")]
     public Task<IActionResult> GetAllDebitCards([FromQuery] GetAllDebitCardsRequest request)
     {
+        _logger.LogInformation("We are in GetAllDebitCards endpoint GET");
         return HandleRequest<GetAllDebitCardsRequest, GetAllDebitCardsResponse>(request);
     }
 
@@ -23,6 +27,7 @@ public class DebitCardsController : ApiControllerBase
     [Route("{debitCardId}")]
     public Task<IActionResult> GetDebitCardById([FromRoute] int debitCardId)
     {
+        _logger.LogInformation("We are in GetDebitCardById endpoint GET");
         var request = new GetDebitCardByIdRequest
         {
             Id = debitCardId
@@ -34,6 +39,7 @@ public class DebitCardsController : ApiControllerBase
     [Route("")]
     public Task<IActionResult> AddDebitCard([FromBody] AddDebitCardRequest request)
     {
+        _logger.LogInformation("We are in AddDebitCard endpoint POST");
         return HandleRequest<AddDebitCardRequest, AddDebitCardResponse>(request);
     }
 
@@ -41,6 +47,7 @@ public class DebitCardsController : ApiControllerBase
     [Route("{debitCardId}")]
     public Task<IActionResult> UpdateDebitCardActivity([FromRoute] int debitCardId, [FromBody] UpdateDebitCardActivityRequest request)
     {
+        _logger.LogInformation("We are in UpdateDebitCardActivity endpoint PUT");
         request.Id = debitCardId;
         return HandleRequest<UpdateDebitCardActivityRequest, UpdateDebitCardActivityResponse>(request);
     }
@@ -49,6 +56,7 @@ public class DebitCardsController : ApiControllerBase
     [Route("{debitCardId}")]
     public Task<IActionResult> RemoveDebitCard([FromRoute] int debitCardId)
     {
+        _logger.LogInformation("We are in RemoveDebitCard endpoint DELETE");
         var request = new RemoveDebitCardRequest { Id = debitCardId };
         return HandleRequest<RemoveDebitCardRequest, RemoveDebitCardResponse>(request);
     }

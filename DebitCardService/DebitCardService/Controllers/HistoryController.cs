@@ -9,14 +9,18 @@ namespace DebitCardService.Controllers;
 [Route("[controller]")]
 public class HistoryController : ApiControllerBase
 {
-    public HistoryController(IMediator mediator) : base(mediator)
+    private readonly ILogger<HistoryController> _logger;
+
+    public HistoryController(IMediator mediator, ILogger<HistoryController> logger) : base(mediator)
     {
+        _logger = logger;
     }
 
     [HttpGet]
     [Route("")]
     public Task<IActionResult> GetAllHistory([FromQuery] GetAllHistoryRequest request)
     {
+        _logger.LogInformation("We are in GetAllHistory endpoint GET");
         return HandleRequest<GetAllHistoryRequest, GetAllHistoryResponse>(request);
     }
 
@@ -24,6 +28,7 @@ public class HistoryController : ApiControllerBase
     [Route("{debitCardId}")]
     public Task<IActionResult> GetHistoryByDebitCardId([FromRoute] int debitCardId)
     {
+        _logger.LogInformation("We are in GetHistoryByDebitCardId endpoint GET");
         var request = new GetHistoryByDebitCardIdRequest
         {
             DebitCardId = debitCardId
@@ -35,6 +40,7 @@ public class HistoryController : ApiControllerBase
     [Route("")]
     public Task<IActionResult> AddHistory([FromBody] AddHistoryRequest request)
     {
+        _logger.LogInformation("We are in AddHistory endpoint POST");
         return HandleRequest<AddHistoryRequest, AddHistoryResponse>(request);
     }
 }

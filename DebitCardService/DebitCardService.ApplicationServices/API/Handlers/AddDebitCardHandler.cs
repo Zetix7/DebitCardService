@@ -5,6 +5,7 @@ using DebitCardService.ApplicationServices.API.ErrorHandling;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Commands;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace DebitCardService.ApplicationServices.API.Handlers;
 
@@ -12,11 +13,14 @@ public class AddDebitCardHandler : IRequestHandler<AddDebitCardRequest, AddDebit
 {
     private readonly IMapper _mapper;
     private readonly ICommandExecutor _commandExecutor;
+    private readonly ILogger<AddDebitCardHandler> _logger;
 
-    public AddDebitCardHandler(IMapper mapper, ICommandExecutor commandExecutor)
+    public AddDebitCardHandler(IMapper mapper, ICommandExecutor commandExecutor, ILogger<AddDebitCardHandler> logger)
     {
         _mapper = mapper;
         _commandExecutor = commandExecutor;
+        _logger = logger;
+        logger.LogInformation("We are in AddDebitCardHandler class");
     }
 
     public async Task<AddDebitCardResponse> Handle(AddDebitCardRequest request, CancellationToken cancellationToken)
@@ -27,6 +31,7 @@ public class AddDebitCardHandler : IRequestHandler<AddDebitCardRequest, AddDebit
 
         if (debitCard == null)
         {
+            _logger.LogError("Wrong CardNumber - it is exist in database! Validation Error occured");
             return new AddDebitCardResponse { Error = new ErrorModel(ErrorType.ValidationError) };
         }
 
