@@ -6,6 +6,7 @@ public class RatesData
 {
     [JsonProperty("effectiveDate")]
     public string? Date { get; set; }
+
     [JsonProperty("bid")]
     public decimal Buy { get; set; }
 

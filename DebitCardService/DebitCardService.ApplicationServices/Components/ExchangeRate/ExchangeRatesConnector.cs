@@ -1,24 +1,25 @@
 ﻿using RestSharp;
 using Newtonsoft.Json;
 using DebitCardService.ApplicationServices.Components.ExchangeRate.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace DebitCardService.ApplicationServices.Components.ExchangeRate;
 
 public class ExchangeRatesConnector : IExchangeRatesConnector
 {
+    private readonly IConfiguration _configuration;
     private readonly RestClient _restClient;
-    private readonly string url = "https://api.nbp.pl/api/";
-    private readonly string jsonFormat = "json";
 
-    public ExchangeRatesConnector()
+    public ExchangeRatesConnector(IConfiguration configuration)
     {
-        _restClient = new RestClient(url);
+        _configuration = configuration;
+        _restClient = new RestClient(_configuration["ConnectionStrings:ExchangeRatesConnection:Url"]!);
     }
 
     public async Task<ExchangeRates> GetExchangeRates(string currency)
     {
         var request = new RestRequest("exchangerates/rates/c/" + currency + "/", Method.Get);
-        request.AddParameter("format", jsonFormat);
+        request.AddParameter("format", _configuration["ConnectionStrings:ExchangeRatesConnection:JsonFormat"]);
         var queryResult = await _restClient.ExecuteAsync(request);
         
         if (queryResult.Content == "404 NotFound - Not Found - Brak danych")
@@ -30,4 +31,3 @@ public class ExchangeRatesConnector : IExchangeRatesConnector
         return exchangeRates!;
     }
 }
-// mojedane@mobi-me.pl

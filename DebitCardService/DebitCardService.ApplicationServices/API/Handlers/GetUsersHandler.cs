@@ -12,18 +12,15 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
 {
     private readonly IMapper _mapper;
     private readonly IQueryExecutor _queryExecutor;
-    private readonly IExchangeRatesConnector _exchangeRatesConnector;
 
-    public GetUsersHandler(IMapper mapper, IQueryExecutor queryExecutor, IExchangeRatesConnector exchangeRatesConnector)
+    public GetUsersHandler(IMapper mapper, IQueryExecutor queryExecutor)
     {
         _mapper = mapper;
         _queryExecutor = queryExecutor;
-        _exchangeRatesConnector = exchangeRatesConnector;
     }
 
     public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
-        var exchangeRatesConnector = await _exchangeRatesConnector.GetExchangeRates("EUR");
         var query = new GetUsersQuery()
         {
             LastName = request.LastName,
