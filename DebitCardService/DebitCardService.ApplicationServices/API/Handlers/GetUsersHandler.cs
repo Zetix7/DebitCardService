@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
+using DebitCardService.ApplicationServices.Components.ExchangeRate;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
@@ -11,15 +12,18 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
 {
     private readonly IMapper _mapper;
     private readonly IQueryExecutor _queryExecutor;
+    private readonly IExchangeRatesConnector _exchangeRatesConnector;
 
-    public GetUsersHandler(IMapper mapper, IQueryExecutor queryExecutor)
+    public GetUsersHandler(IMapper mapper, IQueryExecutor queryExecutor, IExchangeRatesConnector exchangeRatesConnector)
     {
         _mapper = mapper;
         _queryExecutor = queryExecutor;
+        _exchangeRatesConnector = exchangeRatesConnector;
     }
 
     public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
+        var exchangeRatesConnector = await _exchangeRatesConnector.GetExchangeRates("EUR");
         var query = new GetUsersQuery()
         {
             LastName = request.LastName,

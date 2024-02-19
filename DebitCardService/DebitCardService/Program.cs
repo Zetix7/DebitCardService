@@ -1,5 +1,6 @@
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Validators;
+using DebitCardService.ApplicationServices.Components.ExchangeRate;
 using DebitCardService.ApplicationServices.Mappings;
 using DebitCardService.DataAccess;
 using DebitCardService.DataAccess.CQRS;
@@ -18,6 +19,7 @@ builder.Host.UseNLog();
 builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<AddUserRequestValidator>();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
+builder.Services.AddTransient<IExchangeRatesConnector, ExchangeRatesConnector>();
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddAutoMapper(typeof(UsersProfile).Assembly);
