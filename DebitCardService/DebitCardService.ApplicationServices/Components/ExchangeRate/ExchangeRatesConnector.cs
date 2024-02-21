@@ -13,7 +13,7 @@ public class ExchangeRatesConnector : IExchangeRatesConnector
     public ExchangeRatesConnector(IConfiguration configuration)
     {
         _configuration = configuration;
-        _restClient = new RestClient(_configuration.GetConnectionString("ExchangeRatesConnection:Url")!);//["ConnectionStrings:ExchangeRatesConnection:Url"]!);
+        _restClient = new RestClient(_configuration.GetConnectionString("ExchangeRatesConnection:Url")!);
     }
 
     public async Task<ExchangeRates> GetExchangeRates(string currency)

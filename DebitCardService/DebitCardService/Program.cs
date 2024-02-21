@@ -2,16 +2,20 @@ using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Validators;
 using DebitCardService.ApplicationServices.Components.ExchangeRate;
 using DebitCardService.ApplicationServices.Mappings;
+using DebitCardService.Authentication;
 using DebitCardService.DataAccess;
 using DebitCardService.DataAccess.CQRS;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Logging.ClearProviders().SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 

@@ -1,11 +1,10 @@
 ﻿using DebitCardService.ApplicationServices.API.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DebitCardService.Controllers;
 
-[ApiController]
-[Route("[controller]")]
 public class UsersController : ApiControllerBase
 {
     private readonly ILogger<UsersController> _logger;
@@ -32,6 +31,7 @@ public class UsersController : ApiControllerBase
         return HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("")]
     public Task<IActionResult> AddUser([FromBody] AddUserRequest request)

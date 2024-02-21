@@ -1,11 +1,15 @@
 ﻿using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.ErrorHandling;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace DebitCardService.Controllers;
 
+[Authorize]
+[ApiController]
+[Route("[controller]")]
 public abstract class ApiControllerBase : ControllerBase
 {
     protected readonly IMediator _mediator;

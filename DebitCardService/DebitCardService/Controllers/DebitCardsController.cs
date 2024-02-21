@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DebitCardService.Controllers;
 
-[ApiController]
-[Route("[controller]")]
 public class DebitCardsController : ApiControllerBase
 {
     private readonly ILogger<DebitCardsController> _logger;

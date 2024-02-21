@@ -1,11 +1,11 @@
 ﻿using DebitCardService.ApplicationServices.API.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DebitCardService.Controllers;
 
-[ApiController]
-[Route("[controller]")]
+[AllowAnonymous]
 public class ExchangeRatesController : ApiControllerBase
 {
     private readonly ILogger<ExchangeRatesController> _logger;

@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DebitCardService.Controllers;
 
-[ApiController]
-[Route("[controller]")]
 public class HistoryController : ApiControllerBase
 {
     private readonly ILogger<HistoryController> _logger;
