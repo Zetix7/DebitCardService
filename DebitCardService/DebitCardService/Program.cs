@@ -1,6 +1,7 @@
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Validators;
 using DebitCardService.ApplicationServices.Components.ExchangeRate;
+using DebitCardService.ApplicationServices.Components.HashPassword;
 using DebitCardService.ApplicationServices.Mappings;
 using DebitCardService.Authentication;
 using DebitCardService.DataAccess;
@@ -14,15 +15,16 @@ using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Logging.ClearProviders().SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 
 // Add services to the container.
+builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<AddUserRequestValidator>();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
+builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
 builder.Services.AddTransient<IExchangeRatesConnector, ExchangeRatesConnector>();
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();

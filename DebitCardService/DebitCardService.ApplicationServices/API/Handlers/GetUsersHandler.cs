@@ -2,7 +2,6 @@
 using DebitCardService.ApplicationServices.API.Domain;
 using DebitCardService.ApplicationServices.API.Domain.Models;
 using DebitCardService.ApplicationServices.API.ErrorHandling;
-using DebitCardService.ApplicationServices.Components.ExchangeRate;
 using DebitCardService.DataAccess.CQRS;
 using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
@@ -33,7 +32,7 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
         };
         var users = await _queryExecutor.Execute(query);
 
-        if(users.Count == 0)
+        if (users.Count == 0)
         {
             return new GetUsersResponse { Error = new ErrorModel(ErrorType.NotFound) };
         }

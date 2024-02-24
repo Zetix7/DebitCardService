@@ -17,6 +17,5 @@ public class User : EntityBase
     public string? Login { get; set; }
     
     [Required]
-    [StringLength(50, MinimumLength = 10)]
     public string? Password { get; set; }
 }
