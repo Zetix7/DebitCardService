@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DebitCardService.ApplicationServices.API.Validators;
 
-public class UpdateUserNameByIdValidator : AbstractValidator<UpdateUserNameByIdRequest>
+public class UpdateUserNameByIdValidator : AbstractValidator<UpdateUserByIdRequest>
 {
     public UpdateUserNameByIdValidator()
     {

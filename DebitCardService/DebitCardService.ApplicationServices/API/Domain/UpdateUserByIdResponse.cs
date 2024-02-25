@@ -2,6 +2,6 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class UpdateUserNameByIdResponse : ResponseBase<User>
+public class UpdateUserByIdResponse : ResponseBase<User>
 {
 }

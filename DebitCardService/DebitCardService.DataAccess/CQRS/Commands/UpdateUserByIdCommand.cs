@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DebitCardService.DataAccess.CQRS.Commands;
 
-public class UpdateUserNameByIdCommand : CommandBase<User, User>
+public class UpdateUserByIdCommand : CommandBase<User, User>
 {
     public override async Task<User> Execute(DebitCardServiceStorageContext context)
     {
@@ -29,9 +29,19 @@ public class UpdateUserNameByIdCommand : CommandBase<User, User>
             user!.LastName = Parameter!.LastName;
         }
 
+        if (Parameter!.AccessLevel != user.AccessLevel)
+        {
+            user!.AccessLevel = Parameter!.AccessLevel;
+        }
+
         if (!string.IsNullOrEmpty(Parameter!.Password))
         {
             user!.Password = Parameter!.Password;
+        }
+
+        if (Parameter!.IsActive != user.IsActive)
+        {
+            user!.IsActive = Parameter!.IsActive;
         }
 
         await context.SaveChangesAsync();

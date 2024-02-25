@@ -9,20 +9,20 @@ using MediatR;
 
 namespace DebitCardService.ApplicationServices.API.Handlers;
 
-public class UpdateUserNameByIdHandler : IRequestHandler<UpdateUserNameByIdRequest, UpdateUserNameByIdResponse>
+public class UpdateUserByIdHandler : IRequestHandler<UpdateUserByIdRequest, UpdateUserByIdResponse>
 {
     private readonly IMapper _mapper;
     private readonly ICommandExecutor _commandExecutor;
     private readonly IPasswordHasher _passwordHasher;
 
-    public UpdateUserNameByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IPasswordHasher passwordHasher)
+    public UpdateUserByIdHandler(IMapper mapper, ICommandExecutor commandExecutor, IPasswordHasher passwordHasher)
     {
         _mapper = mapper;
         _commandExecutor = commandExecutor;
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<UpdateUserNameByIdResponse> Handle(UpdateUserNameByIdRequest request, CancellationToken cancellationToken)
+    public async Task<UpdateUserByIdResponse> Handle(UpdateUserByIdRequest request, CancellationToken cancellationToken)
     {
         var userEntity = _mapper.Map<DataAccess.Entities.User>(request);
         
@@ -31,21 +31,21 @@ public class UpdateUserNameByIdHandler : IRequestHandler<UpdateUserNameByIdReque
             userEntity.Password = _passwordHasher.CreateHashPassword(userEntity.Password!);
         }
         
-        var command = new UpdateUserNameByIdCommand { Parameter = userEntity };
+        var command = new UpdateUserByIdCommand { Parameter = userEntity };
         var updatedUser = await _commandExecutor.Execute(command);
 
         if (updatedUser.Login == null)
         {
-            return new UpdateUserNameByIdResponse { Error = new ErrorModel(ErrorType.NotFound) };
+            return new UpdateUserByIdResponse { Error = new ErrorModel(ErrorType.NotFound) };
         }
 
         if (updatedUser.Id == 0)
         {
-            return new UpdateUserNameByIdResponse { Error = new ErrorModel(ErrorType.ValidationError) };
+            return new UpdateUserByIdResponse { Error = new ErrorModel(ErrorType.ValidationError) };
         }
 
         var domainUpdatedUser = _mapper.Map<User>(updatedUser);
-        var response = new UpdateUserNameByIdResponse
+        var response = new UpdateUserByIdResponse
         {
             Data = domainUpdatedUser
         };

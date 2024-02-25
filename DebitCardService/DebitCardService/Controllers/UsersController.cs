@@ -42,11 +42,11 @@ public class UsersController : ApiControllerBase
 
     [HttpPut]
     [Route("{userId}")]
-    public Task<IActionResult> UpdateUserNameById([FromRoute] int userId, [FromBody] UpdateUserNameByIdRequest request)
+    public Task<IActionResult> UpdateUserNameById([FromRoute] int userId, [FromBody] UpdateUserByIdRequest request)
     {
         _logger.LogInformation("We are in UpdateUserNameById endpoint PUT");
         request.Id = userId;
-        return HandleRequest<UpdateUserNameByIdRequest, UpdateUserNameByIdResponse>(request);
+        return HandleRequest<UpdateUserByIdRequest, UpdateUserByIdResponse>(request);
     }
 
     [HttpDelete]
