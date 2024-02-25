@@ -43,11 +43,11 @@ public class DebitCardsController : ApiControllerBase
 
     [HttpPut]
     [Route("{debitCardId}")]
-    public Task<IActionResult> UpdateDebitCardActivity([FromRoute] int debitCardId, [FromBody] UpdateDebitCardActivityRequest request)
+    public Task<IActionResult> UpdateDebitCardActivity([FromRoute] int debitCardId, [FromBody] UpdateDebitCardRequest request)
     {
         _logger.LogInformation("We are in UpdateDebitCardActivity endpoint PUT");
         request.Id = debitCardId;
-        return HandleRequest<UpdateDebitCardActivityRequest, UpdateDebitCardActivityResponse>(request);
+        return HandleRequest<UpdateDebitCardRequest, UpdateDebitCardResponse>(request);
     }
 
     [HttpDelete]

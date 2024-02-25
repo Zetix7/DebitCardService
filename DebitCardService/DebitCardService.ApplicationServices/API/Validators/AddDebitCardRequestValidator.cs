@@ -16,5 +16,8 @@ public class AddDebitCardRequestValidator : AbstractValidator<AddDebitCardReques
         RuleFor(x => x.Cvv2Code).InclusiveBetween(100, 999).WithMessage("WRONG_RANGE");
         RuleFor(x => x.PinCode).InclusiveBetween(1000, 9999).WithMessage("WRONG_RANGE");
         RuleFor(x => x.CardHolder).Length(1,51).WithMessage("WRONG_LENGTH");
+        RuleFor(x => x.CashWithdrawalLimit).GreaterThanOrEqualTo(0).WithMessage("TOO_SMALL_VALUE");
+        RuleFor(x => x.PayPassLimit).GreaterThanOrEqualTo(0).WithMessage("TOO_SMALL_VALUE");
+        RuleFor(x => x.PhoneLimit).GreaterThanOrEqualTo(0).WithMessage("TOO_SMALL_VALUE");
     }
 }

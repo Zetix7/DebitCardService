@@ -2,6 +2,6 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class UpdateDebitCardActivityResponse : ResponseBase<DebitCard>
+public class UpdateDebitCardResponse : ResponseBase<DebitCard>
 {
 }
