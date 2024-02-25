@@ -2,7 +2,7 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class AddHistoryRequest : IRequest<AddHistoryResponse>
+public class AddHistoryRequest : RequestBase, IRequest<AddHistoryResponse>
 {
     public int DebitCardId { get; set; }
     public DateTime DateOfOperation { get; set; } = DateTime.Now;

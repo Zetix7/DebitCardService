@@ -2,7 +2,7 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class GetDebitCardByIdRequest : IRequest<GetDebitCardByIdResponse>
+public class GetDebitCardByIdRequest : RequestBase, IRequest<GetDebitCardByIdResponse>
 {
     public int Id { get; set; }
 }

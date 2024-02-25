@@ -2,7 +2,7 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class AddDebitCardRequest : IRequest<AddDebitCardResponse>
+public class AddDebitCardRequest : RequestBase, IRequest<AddDebitCardResponse>
 {
     public string? AccountNumber { get; set; }
     public decimal Amount { get; set; }

@@ -31,6 +31,13 @@ public abstract class ApiControllerBase : ControllerBase
                 .Select(x => new { property = x.Key, errors = x.Value!.Errors }));
         }
 
+        if(User.Claims.FirstOrDefault() != null)
+        {
+            (request as RequestBase)!.IdAuthentication = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            (request as RequestBase)!.NameAuthentication = User.FindFirstValue(ClaimTypes.Name);
+            (request as RequestBase)!.AccessLevelAuthentication = User.FindFirstValue(ClaimTypes.Role);
+        }
+
         var response = await _mediator.Send(request);
 
         if (response.Error != null)

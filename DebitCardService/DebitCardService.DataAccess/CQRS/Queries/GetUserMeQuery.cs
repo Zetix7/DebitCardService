@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DebitCardService.DataAccess.CQRS.Queries;
 
-public class GetUserByIdQuery : QueryBase<User>
+public class GetUserMeQuery : QueryBase<User>
 {
     public int Id { get; set; }
 

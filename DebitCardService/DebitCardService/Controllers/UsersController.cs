@@ -15,20 +15,20 @@ public class UsersController : ApiControllerBase
     }
 
     [HttpGet]
+    [Route("{me}")]
+    public Task<IActionResult> GetUserMe([FromRoute] string me)
+    {
+        _logger.LogInformation("We are in GetUserMe endpoint GET");
+        var request = new GetUserMeRequest { Me = me };
+        return HandleRequest<GetUserMeRequest, GetUserMeResponse>(request);
+    }
+
+    [HttpGet]
     [Route("")]
     public Task<IActionResult> GetAllUsers([FromQuery] GetUsersRequest request)
     {
         _logger.LogInformation("We are in GetAllUsers endpoint GET");
         return HandleRequest<GetUsersRequest, GetUsersResponse>(request);
-    }
-
-    [HttpGet]
-    [Route("{userId}")]
-    public Task<IActionResult> GetUserById([FromRoute] int userId)
-    {
-        _logger.LogInformation("We are in GetAllUserById endpoint GET");
-        var request = new GetUserByIdRequest { UserId = userId };
-        return HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
     }
 
     [AllowAnonymous]

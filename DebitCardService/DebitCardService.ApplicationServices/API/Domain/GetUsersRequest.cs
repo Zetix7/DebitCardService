@@ -2,7 +2,7 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class GetUsersRequest : IRequest<GetUsersResponse>
+public class GetUsersRequest : RequestBase, IRequest<GetUsersResponse>
 {
     public string? Login { get; set; }
 }

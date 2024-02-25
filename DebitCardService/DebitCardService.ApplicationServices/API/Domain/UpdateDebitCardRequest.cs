@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class UpdateDebitCardRequest : IRequest<UpdateDebitCardResponse>
+public class UpdateDebitCardRequest : RequestBase, IRequest<UpdateDebitCardResponse>
 {
     public int Id { get; set; }
     public int PinCode { get; set; }

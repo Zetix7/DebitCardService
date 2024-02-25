@@ -2,7 +2,7 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain
 {
-    public class GetUserByIdResponse : ResponseBase<User>
+    public class GetUserMeResponse : ResponseBase<User>
     {
     }
 }

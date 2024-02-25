@@ -3,7 +3,7 @@ using static DebitCardService.DataAccess.Entities.User;
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class UpdateUserByIdRequest : IRequest<UpdateUserByIdResponse>
+public class UpdateUserByIdRequest : RequestBase, IRequest<UpdateUserByIdResponse>
 {
     public int Id { get; set; }
     public string? FirstName { get; set; }

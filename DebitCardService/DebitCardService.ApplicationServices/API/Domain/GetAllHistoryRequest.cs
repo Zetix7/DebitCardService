@@ -2,7 +2,7 @@
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
-public class GetAllHistoryRequest : IRequest<GetAllHistoryResponse>
+public class GetAllHistoryRequest : RequestBase, IRequest<GetAllHistoryResponse>
 {
     public decimal Amount { get; set; }
 }
