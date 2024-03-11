@@ -26,7 +26,7 @@ public class User : EntityBase
     public string? Login { get; set; }
     
     [Required]
-    public string? Password { get; set; }
+    public string? HashedPassword { get; set; }
 
     [Required]
     public bool IsActive { get; set; }

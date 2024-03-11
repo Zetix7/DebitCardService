@@ -26,9 +26,9 @@ public class AddUserHandler : IRequestHandler<AddUserRequest, AddUserResponse>
     {
         var user = _mapper.Map<DataAccess.Entities.User>(request);
 
-        if (!string.IsNullOrEmpty(user.Password))
+        if (!string.IsNullOrEmpty(user.HashedPassword))
         {
-            user.Password = _passwordHasher.CreateHashPassword(user.Password!);
+            user.HashedPassword = _passwordHasher.CreateHashPassword(user.HashedPassword!);
         }
 
         var command = new AddUserCommand { Parameter = user };

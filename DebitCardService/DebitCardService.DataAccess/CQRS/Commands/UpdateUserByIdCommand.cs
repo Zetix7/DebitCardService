@@ -34,9 +34,9 @@ public class UpdateUserByIdCommand : CommandBase<User, User>
             user!.AccessLevel = Parameter!.AccessLevel;
         }
 
-        if (!string.IsNullOrEmpty(Parameter!.Password))
+        if (!string.IsNullOrEmpty(Parameter!.HashedPassword))
         {
-            user!.Password = Parameter!.Password;
+            user!.HashedPassword = Parameter!.HashedPassword;
         }
 
         if (Parameter!.IsActive != user.IsActive)

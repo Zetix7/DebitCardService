@@ -26,9 +26,9 @@ public class UpdateUserByIdHandler : IRequestHandler<UpdateUserByIdRequest, Upda
     {
         var userEntity = _mapper.Map<DataAccess.Entities.User>(request);
         
-        if (!string.IsNullOrEmpty(userEntity.Password))
+        if (!string.IsNullOrEmpty(userEntity.HashedPassword))
         {
-            userEntity.Password = _passwordHasher.CreateHashPassword(userEntity.Password!);
+            userEntity.HashedPassword = _passwordHasher.CreateHashPassword(userEntity.HashedPassword!);
         }
         
         var command = new UpdateUserByIdCommand { Parameter = userEntity };

@@ -9,6 +9,6 @@ public class AddUserRequest : RequestBase, IRequest<AddUserResponse>
     public string? LastName { get; set; }
     public Role AccessLevel { get; set; }
     public string? Login { get; set; }
-    public string? Password { get; set; }
+    public string? HashedPassword { get; set; }
     public bool IsActive { get; set; }
 }
