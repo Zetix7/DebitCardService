@@ -29,7 +29,6 @@ builder.Services.AddTransient<IExchangeRatesConnector, ExchangeRatesConnector>()
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddAutoMapper(typeof(UsersProfile).Assembly);
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddDbContext<DebitCardServiceStorageContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DebitCardServiceDatabaseConnection")));
 builder.Services.AddMediatR(typeof(ResponseBase<>));
