@@ -12,6 +12,3 @@ public class DebitCardServiceStorageContextFactory : IDesignTimeDbContextFactory
         return new DebitCardServiceStorageContext(optionBuilder.Options);
     }
 }
-
-// I5e1S7EEKkY1NpMxuZUcfi
-// Server=tcp:debit-card-service.database.windows.net,1433;Initial Catalog=DebitCardServiceStorage;Persist Security Info=False;User ID=greg;Password=I5e1S7EEKkY1NpMxuZUcfi;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;

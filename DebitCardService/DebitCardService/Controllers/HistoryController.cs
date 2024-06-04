@@ -1,5 +1,4 @@
 ﻿using DebitCardService.ApplicationServices.API.Domain;
-using DebitCardService.DataAccess.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

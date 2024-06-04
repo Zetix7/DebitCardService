@@ -57,7 +57,6 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             };
             users = await _queryExecutor.Execute(query);
 
-            //var hashed = _passwordHasher.CreateHashPassword(password);
             var hashedPassword = _passwordHasher.CheckHashPassword(password, users[0].HashedPassword!);
             
             if (users == null || users[0].HashedPassword != hashedPassword)

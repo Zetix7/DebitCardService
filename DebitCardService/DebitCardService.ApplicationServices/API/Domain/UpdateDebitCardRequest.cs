@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System.ComponentModel;
 
 namespace DebitCardService.ApplicationServices.API.Domain;
 
